@@ -1,0 +1,43 @@
+const screenWidth=window.innerWidth
+const screenHeight=window.innerHeight
+const contentWidth=window.innerWidth*0.85
+
+let instance
+
+export default class DataBus{
+  constructor(){
+    if(instance){
+      return instance
+    }
+    instance=this
+    this.screenWidth=screenWidth
+    this.screenHeight=screenHeight
+    this.contentWidth=contentWidth
+    this.contentPadding = (this.screenWidth - this.contentWidth)/2
+    this.contentPaddingTop=this.screenHeight-this.contentWidth-this.contentPadding
+    this.puzzleImg=null
+    this.reset()
+  }
+  reset(){
+    this.startTime=Date.now()
+    this.pieces=[]
+    this.gameStart=false
+    this.gameOver=false
+    this.showHelp=false
+    this.showHint=-false
+    this.emptyPosition=0
+    this.puzzleImg=null
+  }
+  getCurrentTime(){
+    let time=Math.floor((Date.now()-this.startTime)/1000)
+    let minute=Math.floor(time/60)
+    if(minute<10){
+      minute='0'+minute
+    }
+    let second=Math.floor(time%60)
+    if(second <10){
+      second='0'+second
+    }
+    return minute+':'+second
+  }
+}
